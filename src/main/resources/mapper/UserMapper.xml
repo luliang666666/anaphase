@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.TUserDao">
+
+    <select id="queryAll" resultType="com.baizhi.entity.MapDto">
+        select address as name, count(id) as value from t_user GROUP BY address
+    </select>
+    <!--最近七天-->
+    <select id="tuserDay" resultType="Integer">
+        select count(id) from t_user where DATEDIFF(now(),last_date) &lt; #{day}
+    </select>
+    <!--月份-->
+    <select id="queryMonth" resultType="com.baizhi.entity.MapDto">
+        select MONTH(last_date) as name, count(id) as value from t_user GROUP BY MONTH(last_date)
+    </select>
+    <!--登录-->
+    <select id="selectByPhoneNumber" resultType="TUser">
+        select * from t_user where phone_number = #{phone_number}
+    </select>
+    <!--注册-->
+    <insert id="insertTuser">
+        insert into t_user values (#{id}, #{phone_number}, #{password}, #{name}, #{dharma}, #{head_img}, #{sex}, #{address}, #{sign}, #{guru_id}, #{last_date}, #{create_date}, #{status}, #{salt}, #{other})
+    </insert>
+</mapper>

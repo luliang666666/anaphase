@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ArticleDao">
+    <!--分页-->
+    <select id="queryByPage" resultType="Article">
+        select id, title, author, content, guru_id guruId, create_date createDate, status, other from article limit #{start}, #{rows}
+    </select>
+    <!--总数-->
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(id) from article
+    </select>
+    <!--删除-->
+    <delete id="deleteById">
+        delete from article where id in
+        <foreach collection="array" open="(" item="id" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <!--添加-->
+    <insert id="insertArticle">
+        insert into article values (#{id}, #{title}, #{author}, #{content}, #{guruId}, #{createDate}, #{status}, #{other})
+    </insert>
+    <!--修改-->
+    <update id="updateArticle">
+        update article
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="guruId != null">
+                guru_id = #{guruId},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="other != null">
+                other = #{other}
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+    <!--根据id返回对象-->
+    <select id="selectById" resultType="Article">
+        select id, title, author, content, guru_id guruId, create_date createDate, status, other from article where id = #{id}
+    </select>
+    <select id="queryAll" resultType="Article">
+        select * from article;
+    </select>
+</mapper>

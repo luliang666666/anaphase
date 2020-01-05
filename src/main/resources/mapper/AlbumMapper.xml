@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <!--分页-->
+    <select id="queryPage" resultType="Album">
+        select id, title, img, score, author, broadcaster, count, brief, create_date, status, other from album limit #{start}, #{rows}
+    </select>
+    <!--总条数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(id) from album
+    </select>
+    <select id="queryAll" resultType="Album">
+        select * from album
+    </select>
+    <select id="selectById" resultType="Album">
+        select * from album where id = #{id}
+    </select>
+</mapper>
