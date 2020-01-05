@@ -10,5 +10,6 @@ public class AnaphaseApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AnaphaseApplication.class, args);
+           System.out.println("88888888");
     }
 }
