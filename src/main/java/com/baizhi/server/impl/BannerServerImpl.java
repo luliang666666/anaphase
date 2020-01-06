@@ -1,7 +1,5 @@
 package com.baizhi.server.impl;
 
-import com.baizhi.annotation.AddCache;
-import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.BannerDao;
 import com.baizhi.entity.Banner;
 import com.baizhi.server.BannerService;
@@ -22,7 +20,7 @@ public class BannerServerImpl implements BannerService {
     @Autowired
     private BannerDao bannerDao;
     @Override
-    @AddCache
+    //@AddCache
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> queryPage(Integer page, Integer rows) {
         Map<String, Object> map = new HashMap<>();
@@ -42,7 +40,7 @@ public class BannerServerImpl implements BannerService {
         return map;
     }
     @Override
-    @ClearCache
+    //@ClearCache
     public String insert(Banner banner) {
         String s = UUID.randomUUID().toString();
         banner.setId(s);
@@ -51,17 +49,17 @@ public class BannerServerImpl implements BannerService {
         return s;
     }
 
-    @ClearCache
+    //@ClearCache
     public void delete(String[] id) {
         bannerDao.delete(id);
     }
 
-    @ClearCache
+    //@ClearCache
     public void update(Banner banner) {
         bannerDao.update(banner);
     }
 
-    @AddCache
+    //@AddCache
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Banner> query() {
 
