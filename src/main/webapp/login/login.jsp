@@ -68,10 +68,10 @@
                    //async:false,//同步  当有返回值时执行后面的程序
                    data:serialize,  //请求需要发送的数据
                    success:function (result) {
-                       if ("ok" == result){//根据返回值进行跳转
+                       if ("ok" == result["msg"]) {//根据返回值进行跳转
                            location.href="${pageContext.request.contextPath}/jsp/admin.jsp"
                        }else {
-                            $("#sp").text(result);
+                           $("#sp").text(result["msg"]);
                        }
                    },
                    datatype:"json"

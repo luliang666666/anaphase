@@ -1,4 +1,5 @@
 <%@page isELIgnored="false" contentType="text/html; UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,6 +38,17 @@
             })
 
     </script>
+    <script>
+        function logOut() {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/admin/logOut",
+                datatype: "json",
+                success: function () {
+                    location.href = "${pageContext.request.contextPath}/login/login.jsp"
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <%--
@@ -56,8 +68,8 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="">欢迎：</a></li>
-                <li><a href="${pageContext.request.contextPath}/login/login.jsp">
+                <li><a href="">欢迎：<b><shiro:principal></shiro:principal></b></a></li>
+                <li><a href="#" onclick="logOut()">
                     <span class="glyphicon glyphicon-share"></span>
                     退出登录
                 </a></li>
@@ -173,6 +185,30 @@
                         </div>
                     </div>
                 </div>
+
+                <%--admin--%>
+                <shiro:hasRole name="superAdmin">
+                    <div class="panel panel-default text-center">
+                        <div class="panel-heading" id="headingOne5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne5">
+                                    <h3>admin管理</h3>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne5" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                    <%--
+                                        javascript:void(0)  阻止页面提交
+                                    --%>
+                                <a href="javascript:void(0)" onclick="$('#myContent').load('echarts.jsp')"
+                                   class="btn btn-primary">
+                                    admin列表
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </shiro:hasRole>
             </div>
         </div>
         <%--

@@ -23,10 +23,7 @@ public class RealmUtil implements ApplicationContextAware {
      * @return
      */
     public static <T> T getBean(Class<T> clazz) {
-        return getApplicationContext().getBean(clazz);
+        return applicationContext.getBean(clazz);
     }
 
-    private static RealmUtil getApplicationContext() {
-        return null;
-    }
 }
